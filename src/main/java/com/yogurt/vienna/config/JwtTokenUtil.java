@@ -11,8 +11,12 @@ import java.util.function.Function;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+@Component
 public class JwtTokenUtil implements Serializable {
 
     /** 참고문서 : https://www.javainuse.com/spring/boot-jwt */
@@ -22,7 +26,7 @@ public class JwtTokenUtil implements Serializable {
     // 토큰 지속시
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 
-    //application.properties에 설정된 secret 코
+    //application.properties에 설정된 secret 코드
     @Value("${jwt.secret}")
     private String secret;
 

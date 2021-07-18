@@ -1,6 +1,8 @@
 package com.yogurt.vienna.controller;
 
 import com.yogurt.vienna.config.JwtTokenUtil;
+import com.yogurt.vienna.entity.JwtRequest;
+import com.yogurt.vienna.entity.JwtResponse;
 import com.yogurt.vienna.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,11 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @RequestMapping("/hello")
+    public String firstPage(){
+        return "helloWorld";
+    }
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception{
