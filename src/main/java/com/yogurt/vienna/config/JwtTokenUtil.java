@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class JwtTokenUtil implements Serializable {
 
+    /** 참고문서 : https://www.javainuse.com/spring/boot-jwt */
+
     private static final long serialVersionUID = -2550185165626007488L;
 
     // 토큰 지속시
