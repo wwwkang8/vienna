@@ -1,9 +1,14 @@
 package com.yogurt.vienna.service;
 
+import com.yogurt.vienna.entity.DAOUser;
+import com.yogurt.vienna.entity.UserDTO;
+import com.yogurt.vienna.repository.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +17,14 @@ import java.util.ArrayList;
 public class JwtUserDetailsService implements UserDetailsService {
 
     /** 참고문서 : https://www.javainuse.com/spring/boot-jwt */
+
+    @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -23,6 +36,13 @@ public class JwtUserDetailsService implements UserDetailsService {
         }else{
             throw new UsernameNotFoundException("User not found with username: " + username);
         }
+    }
+
+    public UserDao save(UserDTO user){
+        DAOUser newUser = new DAOUser();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+        return (UserDao) userDao.save(newUser);
     }
 
 
