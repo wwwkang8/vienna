@@ -18,11 +18,11 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     /** 참고문서 : https://www.javainuse.com/spring/boot-jwt */
 
-    @Autowired
-    private UserDao userDao;
-
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
+//    @Autowired
+//    private UserDao userDao;
+//
+//    @Autowired
+//    private PasswordEncoder bcryptEncoder;
 
 
 
@@ -38,12 +38,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         }
     }
 
-    public UserDao save(UserDTO user){
-        DAOUser newUser = new DAOUser();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        return (UserDao) userDao.save(newUser);
-    }
+//    public UserDao save(UserDTO user){
+//        DAOUser newUser = new DAOUser();
+//        newUser.setUsername(user.getUsername());
+//        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+//        return (UserDao) userDao.save(newUser);
+//    }
 
 
 
