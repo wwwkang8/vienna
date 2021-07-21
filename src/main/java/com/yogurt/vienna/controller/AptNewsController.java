@@ -13,21 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping(value="/apt")
 public class AptNewsController {
 
     @Autowired
     AptNewsService aptNewsService;
 
-    @RequestMapping(value = "/apt/{user}", method = RequestMethod.GET)
-    public ResponseEntity<?> aptNewsProcs(@PathVariable("user") String user){
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public ResponseEntity<?> aptNewsProcs(){
 
+        List<AptDTO> aptDTOList = new ArrayList<>();
+        aptDTOList = aptNewsService.getAptData();
+
+        return ResponseEntity.ok(aptDTOList);
+    }
+
+
+    @RequestMapping(value = "/main/{user}", method = RequestMethod.GET)
+    public ResponseEntity<?> aptNewsProcs(@PathVariable("user") String user){
         if(!user.trim().isEmpty()){
             //if user id is filled with url
-
+            System.out.println("Hello " + user);
 
         }
-
-
         List<AptDTO> aptDTOList = new ArrayList<>();
         aptDTOList = aptNewsService.getAptData();
 

@@ -2,37 +2,27 @@ package com.yogurt.vienna.entity;
 
 public class AptDTO {
 
-    private String aptAdrs ; //Apt adress
-    private String aptName ; //Apt Name
-    private int aptPrice;    //Apt Price
+    private String resultCode ; //Apt adress
+    private String resultMsg ; //Apt Name
 
-    public AptDTO(String aptAdrs, String aptName, int aptPrice) {
-        this.aptAdrs = aptAdrs;
-        this.aptName = aptName;
-        this.aptPrice = aptPrice;
+    public AptDTO(String resultCode, String resultMsg) {
+        this.resultCode = resultCode;
+        this.resultMsg = resultMsg;
     }
 
-    public String getAptAdrs() {
-        return aptAdrs;
+    public String getResultCode() {
+        return resultCode;
     }
 
-    public void setAptAdrs(String aptAdrs) {
-        this.aptAdrs = aptAdrs;
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
     }
 
-    public String getAptName() {
-        return aptName;
+    public String getResultMsg() {
+        return resultMsg;
     }
 
-    public void setAptName(String aptName) {
-        this.aptName = aptName;
-    }
-
-    public int getAptPrice() {
-        return aptPrice;
-    }
-
-    public void setAptPrice(int aptPrice) {
-        this.aptPrice = aptPrice;
+    public void setResultMsg(String resultMsg) {
+        this.resultMsg = resultMsg;
     }
 }
