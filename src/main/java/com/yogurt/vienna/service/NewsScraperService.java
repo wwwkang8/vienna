@@ -24,10 +24,10 @@ public class NewsScraperService {
 
             /** article_list 클래스 하위의 tit 클래스 하위의 a 태그 스크래핑 */
             Elements newsLinks = news.select(".article_list > .tit > a");
-            for(Element link : newsLinks){
+            for(int i=0; i < 5; i++){
 
                 /** 스크래핑한 링크와 텍스트 생성하여 ArrayList에 추가 */
-                NewsDTO newsDTO = new NewsDTO(link.attr("href"), link.text());
+                NewsDTO newsDTO = new NewsDTO(newsLinks.get(i).attr("href"), newsLinks.get(i).text());
                 newsDTOList.add(newsDTO);
 
             }
