@@ -53,12 +53,15 @@ public class KakaoService {
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
 
+
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id="+clientId);
             sb.append("&redirect_uri="+redirectUri);
             sb.append("&code="+authCode);
+            sb.append("&client_secret="+clientSecret);
+
 
             bw.write(sb.toString());
             bw.flush();
@@ -81,6 +84,9 @@ public class KakaoService {
             accessToken = element.getAsJsonObject().get("access_token").getAsString();
             refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
 
+            System.out.println("accessToken : "+accessToken);
+            System.out.println("refreshToken : "+refreshToken);
+
             br.close();
             bw.close();
 
@@ -89,7 +95,7 @@ public class KakaoService {
             e.printStackTrace();
         }
 
-        System.out.println("어세스 토큰 : "+accessToken);
+
 
         return accessToken;
 
