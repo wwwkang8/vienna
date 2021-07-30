@@ -56,19 +56,20 @@ public class KakaoController {
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
                                                         new HttpEntity<>(body, headers);
 
-        /** 카카오로 POST 요청 쏘기 */
+        /** HTTP방식으로 카카오로 POST 요청 쏘기 - 그리고 response 받는다 */
+        /**
+         * 삽질 이유 : uri를 설정하는 곳에 카카오로 POST요청 보내는 URL을 세팅해야 하는데
+         * redirectUri를 세팅을 해버려서 POST 요청이 계속해서 무한루프로 /kakaoAuth를 콜하게 되었다.
+         */
         ResponseEntity<String> response = restTemplate.exchange(
-                redirectUri,
+                "https://kauth.kakao.com/oauth/token",
                 HttpMethod.POST,
                 kakaoTokenRequest,
                 String.class
         );
 
-        System.out.println(response);
 
         return ResponseEntity.ok(response);
-
-
     }
 
     @RequestMapping("/kakaoLogin")
