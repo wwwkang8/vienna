@@ -57,12 +57,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         /** CSRF 보안 설정은 필요없다 이 예제에서는 */
         httpSecurity.csrf().disable()
                         /** /authenticate 요청은 검증하지 않는다 */
-                        .authorizeRequests().antMatchers("/authenticate", "/register", "/kakaoAuth").permitAll()
+                        .authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
                         /** 다른 모든 요청은 검증이 필요 */
                         .anyRequest().authenticated().and()
                         /** stateless한 session을 사용 */
                         .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 
         /** filter를 추가하여 모든 요청에 대해서 토큰의 유효성 검사 */
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
