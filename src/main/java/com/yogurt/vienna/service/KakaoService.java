@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
@@ -37,119 +39,41 @@ public class KakaoService {
     private String result;
 
     /** HttpClient를 사용한 API POST 호출 */
-    public String getAccessToken(String authCode){
+    public ResponseEntity<?> getAccessToken(String authCode){
 
-        /** 참고 : https://github.com/JSBeatCode/kakaologin */
+        /** 참고 자료 : https://www.youtube.com/watch?v=NwQ_55l0Za4 */
 
-        String accessToken = "";
-        String refreshToken = "";
-        String reqURL = "https://kauth.kakao.com/oauth/token";
+        /** Rest API 호출을 위한 헤더, 바디 생성 */
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        body.add("grant_type", "authorization_code");
+        body.add("client_id", clientId);
+        body.add("redirect_uri", redirectUri);
+        body.add("code", authCode);
 
-        System.out.println("authCode = " + authCode);
+        /** Http헤더, 바디를 하나의 객체로 만든다. */
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
+                new HttpEntity<>(body, headers);
 
-        try{
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
-            sb.append("grant_type=authorization_code");
-            sb.append("&client_id="+clientId);
-            sb.append("&redirect_uri="+redirectUri);
-            sb.append("&code="+authCode);
-            sb.append("&client_secret="+clientSecret);
-
-
-            bw.write(sb.toString());
-            bw.flush();
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("response code = " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String line = "";
-            String result = "";
-            while((line = br.readLine())!=null) {
-                result += line;
-            }
+        /** HTTP방식으로 카카오로 POST 요청 쏘기 - 그리고 response 받는다 */
+        /**
+         * 삽질 이유 : uri를 설정하는 곳에 카카오로 POST요청 보내는 URL을 세팅해야 하는데
+         * redirectUri를 세팅을 해버려서 POST 요청이 계속해서 무한루프로 /kakaoAuth를 콜하게 되었다.
+         */
+        ResponseEntity<String> response = restTemplate.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class
+        );
 
 
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            accessToken = element.getAsJsonObject().get("access_token").getAsString();
-            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
-
-            System.out.println("accessToken : "+accessToken);
-            System.out.println("refreshToken : "+refreshToken);
-
-            br.close();
-            bw.close();
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-
-
-        return accessToken;
+        return response;
 
 
     }
-
-    /** RestTemplate 방식 POST 호출(버그 있음) */
-//    public String getAccessToken(String authCode) {
-//
-//        String accessToken = "";
-//        String refreshToken = "";
-//        String requestUrl = "https://kauth.kakao.com/oauth/token";
-//
-//        try {
-//            //헤더 설정
-//            HttpHeaders httpHeaders = new HttpHeaders();
-//            httpHeaders.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
-//
-//
-//            //POST 요청할 파라미터 설정
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("grant_type", "code");
-//            map.put("client_id", client_id);
-//            map.put("redirect_uri", "http://localhost:8080/kakaoLogin");
-//            map.put("code", authCode);
-//            String parameter = objectMapper.writeValueAsString(map);
-//
-//
-//            //HttpEntity에 헤더 및 params 설정
-//            HttpEntity httpEntity = new HttpEntity(parameter, httpHeaders);
-//            System.out.println(httpEntity);
-//
-//            //RestTemplate의 exchange 메서드를 사용하여 URL에 요청
-//            RestTemplate restTemplate = new RestTemplate();
-//            ResponseEntity<?> responseEntity = restTemplate.exchange(requestUrl, HttpMethod.POST, httpEntity, String.class);
-//
-//            //요청후 응답확인
-//            System.out.println(responseEntity.getStatusCode());
-//            System.out.println(responseEntity.getBody());
-//
-//            System.out.println("getAccessToken 함수 실행 완료");
-//            //result = responseEntity.getBody().toString();
-//
-//
-//        } catch (Exception e) {
-//
-//            System.out.println("카카오 토큰 발급 오류");
-//            e.printStackTrace();
-//
-//        }
-//
-//
-//        return result;
-//    }
 
 }
 
