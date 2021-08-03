@@ -1,7 +1,9 @@
 package com.yogurt.vienna.controller;
 
 import com.yogurt.vienna.entity.KakaoLoginDTO;
+import com.yogurt.vienna.entity.NewsDTO;
 import com.yogurt.vienna.service.KakaoService;
+import com.yogurt.vienna.service.NewsScraperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -15,12 +17,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @RestController
 public class KakaoController {
 
     @Autowired
     KakaoService kakaoService;
+
+    @Autowired
+    NewsScraperService newsScraperService;
 
     @Value("${kakaoRestApiKey}")
     private String clientId;
@@ -38,6 +46,18 @@ public class KakaoController {
         ResponseEntity<?> response = kakaoService.getAccessToken(authCode);
 
         return ResponseEntity.ok(response);
+    }
+
+    @RequestMapping("/send/message")
+    public ResponseEntity<?> sendMessage(){
+
+        List<NewsDTO> newsDTOList = new ArrayList<>();
+        newsDTOList = newsScraperService.scrapingNews();
+
+        ResponseEntity<?> response = kakaoService.sendMessage(newsDTOList);
+
+        return ResponseEntity.ok(response);
+
     }
 
 }
