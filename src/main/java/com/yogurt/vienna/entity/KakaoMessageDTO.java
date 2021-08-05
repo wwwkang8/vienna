@@ -1,30 +1,33 @@
 package com.yogurt.vienna.entity;
 
+import java.util.Map;
+
 public class KakaoMessageDTO {
 
-    private String objectType;
+    private String object_type;
     private String text;
-    private String webUrl;
-    private String mobildWebUrl;
-    private String buttonTitle;
-
-    public KakaoMessageDTO(String objectType, String text, String webUrl, String mobildWebUrl, String buttonTitle) {
-        this.objectType = objectType;
-        this.text = text;
-        this.webUrl = webUrl;
-        this.mobildWebUrl = mobildWebUrl;
-        this.buttonTitle = buttonTitle;
-    }
+    //private Map<String, String> link;
+    private String web_url;
+    private String mobile_web_url;
+    private String button_title;
 
     public KakaoMessageDTO() {
     }
 
-    public String getObjectType() {
-        return objectType;
+    public KakaoMessageDTO(String object_type, String text, String web_url, String mobile_web_url, String button_title) {
+        this.object_type = object_type;
+        this.text = text;
+        this.web_url = web_url;
+        this.mobile_web_url = mobile_web_url;
+        this.button_title = button_title;
     }
 
-    public void setObjectType(String objectType) {
-        this.objectType = objectType;
+    public String getObject_type() {
+        return object_type;
+    }
+
+    public void setObject_type(String object_type) {
+        this.object_type = object_type;
     }
 
     public String getText() {
@@ -35,27 +38,27 @@ public class KakaoMessageDTO {
         this.text = text;
     }
 
-    public String getWebUrl() {
-        return webUrl;
+    public String getWeb_url() {
+        return web_url;
     }
 
-    public void setWebUrl(String webUrl) {
-        this.webUrl = webUrl;
+    public void setWeb_url(String web_url) {
+        this.web_url = web_url;
     }
 
-    public String getMobildWebUrl() {
-        return mobildWebUrl;
+    public String getMobile_web_url() {
+        return mobile_web_url;
     }
 
-    public void setMobildWebUrl(String mobildWebUrl) {
-        this.mobildWebUrl = mobildWebUrl;
+    public void setMobile_web_url(String mobile_web_url) {
+        this.mobile_web_url = mobile_web_url;
     }
 
-    public String getButtonTitle() {
-        return buttonTitle;
+    public String getButton_title() {
+        return button_title;
     }
 
-    public void setButtonTitle(String buttonTitle) {
-        this.buttonTitle = buttonTitle;
+    public void setButton_title(String button_title) {
+        this.button_title = button_title;
     }
 }
