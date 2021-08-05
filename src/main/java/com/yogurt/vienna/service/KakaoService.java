@@ -1,6 +1,7 @@
 package com.yogurt.vienna.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.yogurt.vienna.entity.KakaoMessageDTO;
@@ -90,10 +91,14 @@ public class KakaoService {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 
         KakaoMessageDTO kakaoMessage = new KakaoMessageDTO();
-        kakaoMessage.setObjectType("text");
+        kakaoMessage.setObject_type("text");
         kakaoMessage.setText(newsDTOList.get(0).getText());
-        kakaoMessage.setWebUrl(newsDTOList.get(0).getNewsLink());
-        kakaoMessage.setButtonTitle("뉴스 읽기");
+        kakaoMessage.setWeb_url(newsDTOList.get(0).getNewsLink());
+        kakaoMessage.setButton_title("뉴스 읽기");
+
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(kakaoMessage);
+        System.out.println(jsonString);
 
         body.add("template_object", kakaoMessage.toString());
 
