@@ -9,18 +9,18 @@ public class ContentDTO {
     private String image_url;
     private String image_width;
     private String image_height;
-    private Map<String, String> links;
+    private Map<String, String> link;
 
     public ContentDTO() {
     }
 
-    public ContentDTO(String title, String description, String image_url, String image_width, String image_height, Map<String, String> links) {
+    public ContentDTO(String title, String description, String image_url, String image_width, String image_height, Map<String, String> link) {
         this.title = title;
         this.description = description;
         this.image_url = image_url;
         this.image_width = image_width;
         this.image_height = image_height;
-        this.links = links;
+        this.link = link;
     }
 
     public String getTitle() {
@@ -63,11 +63,11 @@ public class ContentDTO {
         this.image_height = image_height;
     }
 
-    public Map<String, String> getLinks() {
-        return links;
+    public Map<String, String> getLink() {
+        return link;
     }
 
-    public void setLinks(Map<String, String> links) {
-        this.links = links;
+    public void setLink(Map<String, String> link) {
+        this.link = link;
     }
 }

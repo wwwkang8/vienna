@@ -89,12 +89,13 @@ public class KakaoService {
         kakaoMessage.setHeader_title("Daily News");
 
         Map<String, String> header_link = new HashMap<>();
-        header_link.put("web_url", "https://www.mk.co.kr/");
-        header_link.put("mobile_web_url", "https://www.mk.co.kr/");
+        header_link.put("web_url", "https://www.mk.co.kr");
+        header_link.put("mobile_web_url", "https://www.mk.co.kr");
         header_link.put("android_execution_params", "main");
         header_link.put("ios_execution_params", "main");
         kakaoMessage.setHeader_link(header_link);
 
+        /** 부동산뉴스 컨텐츠 조립(제목, 연결링크) */
         List<ContentDTO> contentList = new ArrayList<>();
         ContentDTO content = new ContentDTO();
         Map<String, String> newsLink = new HashMap<>();
@@ -109,45 +110,40 @@ public class KakaoService {
             newsLink.put("mobile_web_url", newsDTOList.get(i).getNewsLink());
             newsLink.put("android_execution_params", "");
             newsLink.put("ios_execution_params", "");
-            content.setLinks(newsLink);
+            content.setLink(newsLink);
 
             contentList.add(content);
         }
         kakaoMessage.setContents(contentList);
 
+        /** 버튼 세팅 */
         List<KakaoMessageButtonDTO> buttonList = new ArrayList<>();
         KakaoMessageButtonDTO webButton = new KakaoMessageButtonDTO();
         KakaoMessageButtonDTO appButton = new KakaoMessageButtonDTO();
-        Map<String, String> buttonLinks = new HashMap<>();
+        Map<String, String> webButtonLinks = new HashMap<>();
+        Map<String, String> appButtonLinks = new HashMap<>();
 
         webButton.setTitle("웹으로 이동");
-        buttonLinks.put("web_url", "https://www.mk.co.kr/");
-        buttonLinks.put("mobile_web_url", "https://www.mk.co.kr/");
-        webButton.setLink(buttonLinks);
+        webButtonLinks.put("web_url", "https://www.mk.co.kr/");
+        webButtonLinks.put("mobile_web_url", "https://www.mk.co.kr/");
+        webButton.setLink(webButtonLinks);
 
         appButton.setTitle("앱으로 이동");
-        buttonLinks.put("android_execution_params", "main");
-        buttonLinks.put("ios_execution_params", "main");
-        appButton.setLink(buttonLinks);
+        appButtonLinks.put("android_execution_params", "main");
+        appButtonLinks.put("ios_execution_params", "main");
+        appButton.setLink(appButtonLinks);
         buttonList.add(webButton);
         buttonList.add(appButton);
 
         kakaoMessage.setButtons(buttonList);
 
-//        KakaoMessageDTO kakaoMessage = new KakaoMessageDTO();
-//        kakaoMessage.setObject_type("text");
-//        kakaoMessage.setText(newsDTOList.get(0).getText());
-//        newsLink.put("web_url", newsDTOList.get(0).getNewsLink());
-//        newsLink.put("mobile_web_url", newsDTOList.get(0).getNewsLink());
-//
-//        kakaoMessage.setLink(newsLink);
-//        kakaoMessage.setButton_title("뉴스 읽기");
-
+        /** Json으로 파싱 */
         Gson gson = new Gson();
         String kakaoMessageJson = gson.toJson(kakaoMessage);
         System.out.println(kakaoMessageJson);
 
         body.add("template_object", kakaoMessageJson);
+
 
         /** Http헤더, 바디를 하나의 객체로 만든다. */
         HttpEntity<MultiValueMap<String, String>> kakaoMessageRequest =
