@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity;
+package com.yogurt.vienna.entity.Jwt;
 
 public class JwtResponse {
 
