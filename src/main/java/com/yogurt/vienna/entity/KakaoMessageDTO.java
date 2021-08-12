@@ -6,19 +6,16 @@ public class KakaoMessageDTO {
 
     private String object_type;
     private String text;
-    //private Map<String, String> link;
-    private String web_url;
-    private String mobile_web_url;
+    private Map<String, String> link;
     private String button_title;
 
     public KakaoMessageDTO() {
     }
 
-    public KakaoMessageDTO(String object_type, String text, String web_url, String mobile_web_url, String button_title) {
+    public KakaoMessageDTO(String object_type, String text, Map<String, String> link, String button_title) {
         this.object_type = object_type;
         this.text = text;
-        this.web_url = web_url;
-        this.mobile_web_url = mobile_web_url;
+        this.link = link;
         this.button_title = button_title;
     }
 
@@ -38,20 +35,12 @@ public class KakaoMessageDTO {
         this.text = text;
     }
 
-    public String getWeb_url() {
-        return web_url;
+    public Map<String, String> getLink() {
+        return link;
     }
 
-    public void setWeb_url(String web_url) {
-        this.web_url = web_url;
-    }
-
-    public String getMobile_web_url() {
-        return mobile_web_url;
-    }
-
-    public void setMobile_web_url(String mobile_web_url) {
-        this.mobile_web_url = mobile_web_url;
+    public void setLink(Map<String, String> link) {
+        this.link = link;
     }
 
     public String getButton_title() {

@@ -89,18 +89,22 @@ public class KakaoService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer "+kakaoAccessToken);
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        Map<String, String> link = new HashMap<>();
 
         KakaoMessageDTO kakaoMessage = new KakaoMessageDTO();
         kakaoMessage.setObject_type("text");
         kakaoMessage.setText(newsDTOList.get(0).getText());
-        kakaoMessage.setWeb_url(newsDTOList.get(0).getNewsLink());
+        link.put("web_url", newsDTOList.get(0).getNewsLink());
+        link.put("mobile_web_url", newsDTOList.get(0).getNewsLink());
+        kakaoMessage.setLink(link);
+
         kakaoMessage.setButton_title("뉴스 읽기");
 
         Gson gson = new Gson();
-        String jsonString = gson.toJson(kakaoMessage);
-        System.out.println(jsonString);
+        String kakaoMessageJson = gson.toJson(kakaoMessage);
+        System.out.println(kakaoMessageJson);
 
-        body.add("template_object", kakaoMessage.toString());
+        body.add("template_object", kakaoMessageJson);
 
         /** Http헤더, 바디를 하나의 객체로 만든다. */
         HttpEntity<MultiValueMap<String, String>> kakaoMessageRequest =
