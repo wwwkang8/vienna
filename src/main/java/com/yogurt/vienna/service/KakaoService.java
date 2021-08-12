@@ -88,6 +88,7 @@ public class KakaoService {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer "+kakaoAccessToken);
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+        Map<String, String> link = new HashMap<>();
 
         /** 카카오 리스트메시지 header, body 조립 */
         KakaoMessageDTO kakaoMessage = new KakaoMessageDTO();
@@ -149,7 +150,6 @@ public class KakaoService {
         System.out.println(kakaoMessageJson);
 
         body.add("template_object", kakaoMessageJson);
-
 
         /** Http헤더, 바디를 하나의 객체로 만든다. */
         HttpEntity<MultiValueMap<String, String>> kakaoMessageRequest =
