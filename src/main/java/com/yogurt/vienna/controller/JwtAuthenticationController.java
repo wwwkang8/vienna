@@ -1,9 +1,8 @@
 package com.yogurt.vienna.controller;
 
 import com.yogurt.vienna.config.JwtTokenUtil;
-import com.yogurt.vienna.entity.JwtRequest;
-import com.yogurt.vienna.entity.JwtResponse;
-import com.yogurt.vienna.entity.UserDTO;
+import com.yogurt.vienna.entity.Jwt.JwtRequest;
+import com.yogurt.vienna.entity.Jwt.JwtResponse;
 import com.yogurt.vienna.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

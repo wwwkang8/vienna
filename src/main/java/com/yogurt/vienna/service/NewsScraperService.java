@@ -1,10 +1,9 @@
 package com.yogurt.vienna.service;
 
-import com.yogurt.vienna.entity.NewsDTO;
+import com.yogurt.vienna.entity.News.NewsDTO;
 import org.springframework.stereotype.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;

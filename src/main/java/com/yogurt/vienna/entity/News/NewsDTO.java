@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity;
+package com.yogurt.vienna.entity.News;
 
 public class NewsDTO {
 
