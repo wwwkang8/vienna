@@ -78,12 +78,6 @@ public class KakaoService {
 
     public ResponseEntity<?> sendMessage(List<NewsDTO> newsDTOList){
 
-        System.out.println(newsDTOList.get(0).getText());
-        System.out.println(newsDTOList.get(1).getText());
-        System.out.println(newsDTOList.get(2).getText());
-        System.out.println(newsDTOList.get(3).getText());
-        System.out.println(newsDTOList.get(4).getText());
-
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", "Bearer "+kakaoAccessToken);
@@ -104,9 +98,11 @@ public class KakaoService {
 
         /** 부동산뉴스 컨텐츠 조립(제목, 연결링크) */
         List<ContentDTO> contentList = new ArrayList<>();
-        Map<String, String> newsLink = new HashMap<>();
+
         for(int i=0; i<newsDTOList.size(); i++){
             ContentDTO content = new ContentDTO();
+            Map<String, String> newsLink = new HashMap<>();
+
             content.setTitle(newsDTOList.get(i).getText());
             content.setDescription("뉴스");
             content.setImage_url("");
@@ -122,6 +118,7 @@ public class KakaoService {
             contentList.add(content);
         }
         kakaoMessage.setContents(contentList);
+
 
         /** 버튼 세팅 */
         List<KakaoMessageButtonDTO> buttonList = new ArrayList<>();
