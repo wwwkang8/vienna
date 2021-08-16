@@ -23,6 +23,8 @@ public class BatchConfig {
     public NewsTasklet newsTasklet;
 
     /** JobBuilderFactory 사용하여 NewsJob 생성 */
+    /** 기억보단 기록을 참고자료 : https://jojoldu.tistory.com/325 */
+
     @Bean
     public Job sendNewsJob(){
         return jobBuilderFactory.get("sendNewsJob")
