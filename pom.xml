@@ -99,6 +99,11 @@
             <artifactId>spring-boot-starter-quartz</artifactId>
             <version>2.5.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.7.4</version>
+        </dependency>
     </dependencies>
 
     <build>
