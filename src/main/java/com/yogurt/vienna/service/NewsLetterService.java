@@ -24,8 +24,6 @@ public class NewsLetterService {
 
     public void sendNewsLetter(String sendGridApiKey) {
 
-        System.out.println(sendGridApiKey);
-
         Email from = new Email(fromEmail);
         Email to = new Email(toEmail);
         String subject = "Sending news letter for test";
@@ -33,7 +31,6 @@ public class NewsLetterService {
         Mail mail = new Mail(from, subject, to, content);
 
         SendGrid sg = new SendGrid(sendGridApiKey);
-        //SendGrid sg = new SendGrid(System.getenv(sendGridApiKey)); 이건 작동 안함
         Request request = new Request();
         try {
             request.setMethod(Method.POST);
