@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.IOException;
+
 @Controller
 public class NewsLetterController {
 
@@ -19,9 +21,11 @@ public class NewsLetterController {
     NewsLetterService newsLetterService;
 
     @RequestMapping("/send/mail")
-    public ResponseEntity<?> sendNewsLetter(){
+    public ResponseEntity<?> sendNewsLetter() throws IOException {
 
-        newsLetterService.sendNewsLetter(sendGridApiKey);
+        //newsLetterService.sendNewsLetter(sendGridApiKey);
+        StringBuilder stringBuilderResponse = newsLetterService.getAptPrice();
+        System.out.println(stringBuilderResponse);
 
         return ResponseEntity.ok("ok");
 
