@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -96,8 +99,22 @@ public class NewsLetterService {
         conn.disconnect();
         System.out.println(sb.toString());
 
+        parseXmlData(sb);
+
+
+
+
+
         return sb;
 
+
+    }
+
+    public void parseXmlData(StringBuilder sb) throws ParserConfigurationException {
+
+        DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+
+        DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
 
     }
 
