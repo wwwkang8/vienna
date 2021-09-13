@@ -11,13 +11,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -68,13 +75,13 @@ public class NewsLetterService {
 
     }
 
-    public StringBuilder getAptPrice() throws IOException {
+    public String getAptPrice() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
 
         //url
         StringBuilder urlBuilder = new StringBuilder("http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade");
         urlBuilder.append("?"+ URLEncoder.encode("ServiceKey", "UTF-8")+"="+AptTradeEncodingKey);
         urlBuilder.append("&"+URLEncoder.encode("LAWD_CD","UTF-8")+"="+URLEncoder.encode("11110", "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("DEAL_YMD","UTF-8") + "=" + URLEncoder.encode("201512", "UTF-8")); /*월 단위 신고자료*/
+        urlBuilder.append("&" + URLEncoder.encode("DEAL_YMD","UTF-8") + "=" + URLEncoder.encode("202101", "UTF-8")); /*월 단위 신고자료*/
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -99,22 +106,57 @@ public class NewsLetterService {
         conn.disconnect();
         System.out.println(sb.toString());
 
-        parseXmlData(sb);
+        parseXmlData(sb.toString());
 
 
-
-
-
-        return sb;
+        return "";
 
 
     }
 
-    public void parseXmlData(StringBuilder sb) throws ParserConfigurationException {
+    public void parseXmlData(String sb) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
+
+
+
+        /** 참고자료 : https://pangtrue.tistory.com/222 */
+        /** 참고자료 : https://jeong-pro.tistory.com/144 */
 
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder documentBuilder = builderFactory.newDocumentBuilder();
+
+        InputSource is = new InputSource(new StringReader((sb.toString())));
+
+        Document document = documentBuilder.parse(is);
+
+//        document.getDocumentElement().normalize();
+//
+//        NodeList aptItemSet = document.getElementsByTagName("items");
+
+        XPathFactory xpathFactory = XPathFactory.newInstance();
+        XPath xpath = xpathFactory.newXPath();
+        // XPathExpression expr = xpath.compile("/response/body/items/item");
+        XPathExpression expr = xpath.compile("//items/item");
+        NodeList aptItemSet = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
+
+
+        for(int i=0; i<aptItemSet.getLength(); i++){
+
+            NodeList aptItem = aptItemSet.item(i).getChildNodes();
+
+            for(int j=0; j<aptItem.getLength(); j++){
+
+                Node node = aptItem.item(j);
+
+                System.out.println(node.getNodeName());
+
+                //DTO 객체 만들어서 담기
+
+            }
+
+        }
+
+
 
     }
 
