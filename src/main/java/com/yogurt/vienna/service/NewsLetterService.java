@@ -7,6 +7,7 @@ import com.sendgrid.SendGrid;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import com.yogurt.vienna.entity.News.AptInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class NewsLetterService {
@@ -116,8 +119,6 @@ public class NewsLetterService {
 
     public void parseXmlData(String sb) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
 
-
-
         /** 참고자료 : https://pangtrue.tistory.com/222 */
         /** 참고자료 : https://jeong-pro.tistory.com/144 */
 
@@ -139,18 +140,25 @@ public class NewsLetterService {
         XPathExpression expr = xpath.compile("//items/item");
         NodeList aptItemSet = (NodeList) expr.evaluate(document, XPathConstants.NODESET);
 
+        List<AptInfoDTO> aptInfoDTOList = new ArrayList<>();
 
         for(int i=0; i<aptItemSet.getLength(); i++){
 
             NodeList aptItem = aptItemSet.item(i).getChildNodes();
 
             for(int j=0; j<aptItem.getLength(); j++){
+                AptInfoDTO aptInfo = new AptInfoDTO();
 
                 Node node = aptItem.item(j);
 
                 System.out.println(node.getNodeName());
 
+
                 //DTO 객체 만들어서 담기
+
+
+
+
 
             }
 
