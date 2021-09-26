@@ -151,17 +151,56 @@ public class NewsLetterService {
 
                 Node node = aptItem.item(j);
 
-                System.out.println(node.getNodeName());
+                String nodeName = node.getNodeName();
+                String nodeValue = node.getTextContent();
 
+                switch(nodeName){
 
-                //DTO 객체 만들어서 담기
+                    case "거래금액":
+                        aptInfo.setAptPrice(nodeValue);
+                        break;
+                    case "건축년도":
+                        aptInfo.setConstructYear(nodeValue);
+                        break;
+                    case "년":
+                        aptInfo.setTrnMonth(nodeValue);
+                        break;
+                    case "일":
+                        aptInfo.setTrnDay(nodeValue);
+                        break;
+                    case "전용면적":
+                        aptInfo.setJeonyong(nodeValue);
+                        break;
+                    case "지번":
+                        aptInfo.setJibeon(nodeValue);
+                        break;
+                    case "지역코드":
+                        aptInfo.setAreaCode(nodeValue);
+                        break;
+                    case "층":
+                        aptInfo.setFloor(nodeValue);
+                        break;
+                    default:
 
+                        break;
+                }
 
-
-
+                aptInfoDTOList.add(aptInfo);
 
             }
 
+       }
+
+        for(int j=0; j<aptInfoDTOList.size(); j++){
+            System.out.println("가격 : "+aptInfoDTOList.get(j).getAptPrice()
+                                + ", 건축년도 : "+aptInfoDTOList.get(j).getConstructYear()
+                                + ", 년 : "+aptInfoDTOList.get(j).getTrnYear()
+                                + ", 월 : "+aptInfoDTOList.get(j).getTrnMonth()
+                                + ", 일 : "+aptInfoDTOList.get(j).getTrnDay()
+                                + ", 전용면적 : "+aptInfoDTOList.get(j).getJeonyong()
+                                + ", 지번 : "+aptInfoDTOList.get(j).getJibeon()
+                                + ", 지역코 : "+aptInfoDTOList.get(j).getAreaCode()
+                                + ", 층 : "+aptInfoDTOList.get(j).getFloor());
         }
 
 

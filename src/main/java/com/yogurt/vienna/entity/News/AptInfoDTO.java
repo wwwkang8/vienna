@@ -2,22 +2,22 @@ package com.yogurt.vienna.entity.News;
 
 public class AptInfoDTO {
 
-    private int aptPrice;
+    private String aptPrice;
     private String constructYear;
     private String trnYear;
     private String trnMonth;
     private String trnDay;
     private String address1;
     private String address2;
-    private int jeonyong;
+    private String jeonyong;
     private String jibeon;
     private String areaCode;
-    private int floor;
+    private String floor;
 
     public AptInfoDTO() {
     }
 
-    public AptInfoDTO(int aptPrice, String constructYear, String trnYear, String trnMonth, String trnDay, String address1, String address2, int jeonyong, String jibeon, String areaCode, int floor) {
+    public AptInfoDTO(String aptPrice, String constructYear, String trnYear, String trnMonth, String trnDay, String address1, String address2, String jeonyong, String jibeon, String areaCode, String floor) {
         this.aptPrice = aptPrice;
         this.constructYear = constructYear;
         this.trnYear = trnYear;
@@ -31,11 +31,11 @@ public class AptInfoDTO {
         this.floor = floor;
     }
 
-    public int getAptPrice() {
+    public String getAptPrice() {
         return aptPrice;
     }
 
-    public void setAptPrice(int aptPrice) {
+    public void setAptPrice(String aptPrice) {
         this.aptPrice = aptPrice;
     }
 
@@ -87,11 +87,11 @@ public class AptInfoDTO {
         this.address2 = address2;
     }
 
-    public int getJeonyong() {
+    public String getJeonyong() {
         return jeonyong;
     }
 
-    public void setJeonyong(int jeonyong) {
+    public void setJeonyong(String jeonyong) {
         this.jeonyong = jeonyong;
     }
 
@@ -111,11 +111,11 @@ public class AptInfoDTO {
         this.areaCode = areaCode;
     }
 
-    public int getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(int floor) {
+    public void setFloor(String floor) {
         this.floor = floor;
     }
 }
