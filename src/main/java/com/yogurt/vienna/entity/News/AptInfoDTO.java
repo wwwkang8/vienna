@@ -3,6 +3,7 @@ package com.yogurt.vienna.entity.News;
 public class AptInfoDTO {
 
     private String aptPrice;
+    private String trnDate;
     private String constructYear;
     private String trnYear;
     private String trnMonth;
@@ -17,8 +18,9 @@ public class AptInfoDTO {
     public AptInfoDTO() {
     }
 
-    public AptInfoDTO(String aptPrice, String constructYear, String trnYear, String trnMonth, String trnDay, String address1, String address2, String jeonyong, String jibeon, String areaCode, String floor) {
+    public AptInfoDTO(String aptPrice, String trnDate, String constructYear, String trnYear, String trnMonth, String trnDay, String address1, String address2, String jeonyong, String jibeon, String areaCode, String floor) {
         this.aptPrice = aptPrice;
+        this.trnDate = trnDate;
         this.constructYear = constructYear;
         this.trnYear = trnYear;
         this.trnMonth = trnMonth;
@@ -37,6 +39,14 @@ public class AptInfoDTO {
 
     public void setAptPrice(String aptPrice) {
         this.aptPrice = aptPrice;
+    }
+
+    public String getTrnDate() {
+        return trnDate;
+    }
+
+    public void setTrnDate(String trnDate) {
+        this.trnDate = trnDate;
     }
 
     public String getConstructYear() {

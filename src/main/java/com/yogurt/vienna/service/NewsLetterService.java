@@ -145,24 +145,30 @@ public class NewsLetterService {
         for(int i=0; i<aptItemSet.getLength(); i++){
 
             NodeList aptItem = aptItemSet.item(i).getChildNodes();
+            AptInfoDTO aptInfo = new AptInfoDTO();
+            StringBuffer trnDate = new StringBuffer();
 
             for(int j=0; j<aptItem.getLength(); j++){
-                AptInfoDTO aptInfo = new AptInfoDTO();
+
 
                 Node node = aptItem.item(j);
 
                 String nodeName = node.getNodeName();
                 String nodeValue = node.getTextContent();
 
-                switch(nodeName){
+                switch(nodeName) {
 
                     case "거래금액":
-                        aptInfo.setAptPrice(nodeValue);
+                        String aptPrice = nodeValue.replace(" ", "");
+                        aptInfo.setAptPrice(aptPrice);
                         break;
                     case "건축년도":
                         aptInfo.setConstructYear(nodeValue);
                         break;
                     case "년":
+                        aptInfo.setTrnYear(nodeValue);
+                        break;
+                    case "월":
                         aptInfo.setTrnMonth(nodeValue);
                         break;
                     case "일":
@@ -185,21 +191,29 @@ public class NewsLetterService {
                         break;
                 }
 
-                aptInfoDTOList.add(aptInfo);
-
             }
+
+            trnDate.append(aptInfo.getTrnYear());
+            trnDate.append(aptInfo.getTrnMonth());
+
+            if(aptInfo.getTrnDay().length() == 1){ //일자가 1자리일 경우를 위해서 앞에 0을 붙인다.
+                trnDate.append("0");
+            }
+            trnDate.append(aptInfo.getTrnDay());
+            aptInfo.setTrnDate(trnDate.toString()); //년 + 월 + 일 합쳐서 거래일자 생성
+
+            aptInfoDTOList.add(aptInfo);
 
        }
 
+        /** 아파트정보 구조체 출력 */
         for(int j=0; j<aptInfoDTOList.size(); j++){
             System.out.println("가격 : "+aptInfoDTOList.get(j).getAptPrice()
                                 + ", 건축년도 : "+aptInfoDTOList.get(j).getConstructYear()
-                                + ", 년 : "+aptInfoDTOList.get(j).getTrnYear()
-                                + ", 월 : "+aptInfoDTOList.get(j).getTrnMonth()
-                                + ", 일 : "+aptInfoDTOList.get(j).getTrnDay()
+                                + ", 거래일자 : "+aptInfoDTOList.get(j).getTrnDate()
                                 + ", 전용면적 : "+aptInfoDTOList.get(j).getJeonyong()
                                 + ", 지번 : "+aptInfoDTOList.get(j).getJibeon()
-                                + ", 지역코 : "+aptInfoDTOList.get(j).getAreaCode()
+                                + ", 지역코드 : "+aptInfoDTOList.get(j).getAreaCode()
                                 + ", 층 : "+aptInfoDTOList.get(j).getFloor());
         }
 
