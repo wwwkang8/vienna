@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity.Kakao;
+package com.yogurt.vienna.dto.Kakao;
 
 public class KakaoLoginDTO {
 

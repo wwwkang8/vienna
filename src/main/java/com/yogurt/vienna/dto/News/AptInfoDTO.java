@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity.News;
+package com.yogurt.vienna.dto.News;
 
 public class AptInfoDTO {
 

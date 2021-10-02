@@ -1,8 +1,6 @@
 package com.yogurt.vienna.service;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.yogurt.vienna.entity.AptDTO;
+import com.yogurt.vienna.dto.AptDTO;
 
 import org.springframework.stereotype.Service;
 import org.xml.sax.InputSource;
@@ -15,17 +13,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 
 @Service

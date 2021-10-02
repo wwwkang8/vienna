@@ -2,10 +2,10 @@ package com.yogurt.vienna.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.yogurt.vienna.entity.Kakao.ContentDTO;
-import com.yogurt.vienna.entity.Kakao.KakaoMessageButtonDTO;
-import com.yogurt.vienna.entity.Kakao.KakaoMessageDTO;
-import com.yogurt.vienna.entity.News.NewsDTO;
+import com.yogurt.vienna.dto.Kakao.ContentDTO;
+import com.yogurt.vienna.dto.Kakao.KakaoMessageButtonDTO;
+import com.yogurt.vienna.dto.Kakao.KakaoMessageDTO;
+import com.yogurt.vienna.dto.News.NewsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;

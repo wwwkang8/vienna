@@ -1,7 +1,7 @@
 package com.yogurt.vienna.controller;
 
 import com.yogurt.vienna.batch.tasklets.NewsTasklet;
-import com.yogurt.vienna.entity.News.NewsDTO;
+import com.yogurt.vienna.dto.News.NewsDTO;
 import com.yogurt.vienna.service.KakaoService;
 import com.yogurt.vienna.service.NewsScraperService;
 import org.springframework.beans.factory.annotation.Autowired;
