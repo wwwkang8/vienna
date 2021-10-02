@@ -1,6 +1,6 @@
 package com.yogurt.vienna.service;
 
-import com.yogurt.vienna.entity.News.NewsDTO;
+import com.yogurt.vienna.dto.News.NewsDTO;
 import org.springframework.stereotype.Service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

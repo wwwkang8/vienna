@@ -1,6 +1,6 @@
 package com.yogurt.vienna.controller;
 
-import com.yogurt.vienna.entity.AptDTO;
+import com.yogurt.vienna.dto.AptDTO;
 import com.yogurt.vienna.service.AptNewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

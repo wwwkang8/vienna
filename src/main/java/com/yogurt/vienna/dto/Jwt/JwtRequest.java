@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity.Jwt;
+package com.yogurt.vienna.dto.Jwt;
 
 public class JwtRequest {
 

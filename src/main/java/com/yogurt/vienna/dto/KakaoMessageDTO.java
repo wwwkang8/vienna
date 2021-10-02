@@ -1,4 +1,4 @@
-package com.yogurt.vienna.entity;
+package com.yogurt.vienna.dto;
 
 import java.util.Map;
 
