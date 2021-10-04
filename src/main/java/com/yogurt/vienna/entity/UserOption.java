@@ -17,5 +17,7 @@ public class UserOption {
 
     private String areaCode;
 
+    private String frequency;
+
 
 }
