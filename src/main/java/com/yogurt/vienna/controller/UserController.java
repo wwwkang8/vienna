@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,6 +30,17 @@ public class UserController {
         String result = userService.register(email, pwd);
 
         return ResponseEntity.ok("회원가입 완료!!" + " 아이디 : "+email);
+    }
+
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public ModelAndView userRegister(HttpServletRequest httpServletRequest) throws Exception {
+        ModelAndView mv = new ModelAndView("/user/userRegister");
+
+
+
+        return mv;
+
+
     }
 
 
