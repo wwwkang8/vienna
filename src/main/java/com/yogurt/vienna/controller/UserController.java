@@ -29,7 +29,7 @@ public class UserController {
 
         String result = userService.register(email, pwd);
 
-        return ResponseEntity.ok("회원가입 완료!!" + " 아이디 : "+email);
+        return ResponseEntity.ok(result);
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)

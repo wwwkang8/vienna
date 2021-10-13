@@ -22,16 +22,16 @@
         <h1 class="user__title">A lightweight and simple sign-up form</h1>
     </header>
 
-    <form class="form">
+    <form class="form" action="${pageContext.request.contextPath}/user/register" method="post">
         <div class="form__group">
-            <input type="email" placeholder="Email" class="form__input" />
+            <input type="email" name="email" placeholder="Email" class="form__input" />
         </div>
 
         <div class="form__group">
-            <input type="password" placeholder="Password" class="form__input" />
+            <input type="password" name="password" placeholder="Password" class="form__input" />
         </div>
 
-        <button class="btn" type="button">Register</button>
+        <button class="btn" type="submit">Register</button>
     </form>
 </div>
 </body>
