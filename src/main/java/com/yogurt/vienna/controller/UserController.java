@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.logging.Logger;
 
 @Controller
 public class UserController {
+
+    Logger logger = Logger.getLogger("com.yogurt.vienna.controller.UserController");
 
     @Autowired
     UserService userService;
