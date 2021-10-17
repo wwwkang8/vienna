@@ -6,8 +6,12 @@ import com.yogurt.vienna.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
 public class UserService {
+
+    Logger logger = Logger.getLogger("com.yogurt.vienna.controller.UserService");
 
     @Autowired
     UserRepository userRepository;
@@ -39,7 +43,7 @@ public class UserService {
         return "회원가입완료";
     }
 
-    public boolean isEmailExist(String email){
+    private boolean isEmailExist(String email){
 
         //Email 기존재여부 확인
         User user = userRepository.findUserByEmail(email);
@@ -55,7 +59,7 @@ public class UserService {
         }
     }
 
-    public boolean emailPwdValidation(String email, String pwd){
+    private boolean emailPwdValidation(String email, String pwd){
 
         //이메일 @ 기호 포함여부 검증
         if(!email.contains("@")){
@@ -68,8 +72,6 @@ public class UserService {
             System.out.println("비밀번호는 6자리 이상이어야 합니다.");
             return false;
         }
-
-
 
         return true;
     }

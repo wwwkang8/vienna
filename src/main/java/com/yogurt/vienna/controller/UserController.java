@@ -28,7 +28,7 @@ public class UserController {
         String email = httpServletRequest.getParameter("email");
         String pwd = httpServletRequest.getParameter("password");
 
-        System.out.println("이메일 : "+ email + ", 비밀번호 : "+pwd);
+        logger.info("이메일 : "+ email + ", 비밀번호 : "+pwd);
 
         String result = userService.register(email, pwd);
 
@@ -39,12 +39,10 @@ public class UserController {
     public ModelAndView userRegister(HttpServletRequest httpServletRequest) throws Exception {
         ModelAndView mv = new ModelAndView("/user/userRegister");
 
-
-
         return mv;
-
-
     }
+
+
 
 
 
