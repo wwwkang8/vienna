@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
@@ -22,7 +23,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public ResponseEntity<?> register(HttpServletRequest httpServletRequest){
+    public RedirectView register(HttpServletRequest httpServletRequest){
 
         System.out.printf(httpServletRequest.toString());
         String email = httpServletRequest.getParameter("email");
@@ -32,7 +33,10 @@ public class UserController {
 
         String result = userService.register(email, pwd);
 
-        return ResponseEntity.ok(result);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/");
+        return redirectView;
+
     }
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
