@@ -39,12 +39,26 @@ public class UserController {
 
     }
 
+    @RequestMapping(value="/user/subscribe", method = RequestMethod.POST)
+    public String subscribe(HttpServletRequest httpServletRequest){
+
+        String email = httpServletRequest.getParameter("email");
+
+        String result = userService.subscribe(email);
+
+        return "index";
+
+    }
+
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public ModelAndView userRegister(HttpServletRequest httpServletRequest) throws Exception {
-        ModelAndView mv = new ModelAndView("/user/userRegister");
+        ModelAndView mv = new ModelAndView("/user/subscribe");
 
         return mv;
     }
+
+
+
 
 
 

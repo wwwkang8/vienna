@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         /** CSRF 보안 설정은 필요없다 이 예제에서는 */
         httpSecurity.csrf().disable()
                         /** /authenticate 요청은 검증하지 않는다 */
-                        .authorizeRequests().antMatchers("/authenticate", "/register", "/send/message", "/user/register", "/").permitAll()
+                        .authorizeRequests().antMatchers("/authenticate", "/register", "/send/message", "/user/register", "/", "/user/subscribe").permitAll()
                         /** 다른 모든 요청은 검증이 필요 */
                         .anyRequest().authenticated().and()
                         /** stateless한 session을 사용 */
