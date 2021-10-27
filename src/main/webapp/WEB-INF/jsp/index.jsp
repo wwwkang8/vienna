@@ -29,7 +29,7 @@
 </style>
 <script type="text/javascript">
     function subscribe(){
-        const emailForm = document.subscription;
+        const emailForm = document.email_subscribe;
         emailForm.submit();
     }
 </script>
@@ -38,8 +38,11 @@
 <div class="bgimg w3-display-container w3-text-white">
     <div class="w3-display-middle w3-jumbo">
         <p>비엔나 뉴스 구독</p>
-        <input type="email" action="${pageContext.request.contextPath}/user/subscribe" name="email" placeholder="Email" class="email_form" />
-        <button name="subscribe"  class="email_subscribe" onclick="subscribe()">구독</button>
+        <form id="subscription" action="${pageContext.request.contextPath}/user/subscribe" method="post">
+            <input type="email" name="email" placeholder="Email" class="email_form" />
+            <input type="submit" name="subscribe" class="email_subscribe">
+        </form>
+
     </div>
 
     <div class="w3-display-topleft w3-container w3-xlarge">

@@ -16,6 +16,27 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    public String subscribe(String email){
+
+        String result = "";
+
+        User user = new User();
+        user.setEmail(email);
+        user.setPwd(" ");
+
+        try{
+            userRepository.save(user);
+            result = email + " 구독완료";
+        }catch(Exception e){
+            System.out.println("회원 정보 저장실패!");
+            result = email + " 구독실패";
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
     public String register(String email, String password){
 
         // 중복검증
