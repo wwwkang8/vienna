@@ -18,6 +18,17 @@ public class UserService {
 
     public String subscribe(String email){
 
+        // 중복검증
+        if(isEmailExist(email) == true) {
+
+            return "이미 사용하고 있는 이메일입니다.";
+        }
+
+        if(emailPwdValidation(email) == false){
+
+            return "이메일 ,비밀번호 검증 필요";
+        }
+
         String result = "";
 
         User user = new User();
@@ -37,32 +48,6 @@ public class UserService {
 
     }
 
-    public String register(String email, String password){
-
-        // 중복검증
-        if(isEmailExist(email) == true) {
-
-            return "이미 사용하고 있는 이메일입니다.";
-        }
-
-        if(emailPwdValidation(email, password) == false){
-
-            return "이메일 ,비밀번호 검증 필요";
-        }
-
-        User user = new User();
-        user.setEmail(email);
-        user.setPwd(password);
-        try{
-            userRepository.save(user);
-        }catch(Exception e){
-            System.out.println("회원 정보 저장실패!");
-            e.printStackTrace();
-        }
-
-
-        return "회원가입완료";
-    }
 
     private boolean isEmailExist(String email){
 
@@ -80,7 +65,7 @@ public class UserService {
         }
     }
 
-    private boolean emailPwdValidation(String email, String pwd){
+    private boolean emailPwdValidation(String email){
 
         //이메일 @ 기호 포함여부 검증
         if(!email.contains("@")){
@@ -88,11 +73,6 @@ public class UserService {
             return false;
         }
 
-        //비밀번호는 6자리이상
-        if(pwd.length() < 6){
-            System.out.println("비밀번호는 6자리 이상이어야 합니다.");
-            return false;
-        }
 
         return true;
     }

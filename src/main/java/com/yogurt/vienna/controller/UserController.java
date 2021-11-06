@@ -22,40 +22,21 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public RedirectView register(HttpServletRequest httpServletRequest){
-
-        System.out.printf(httpServletRequest.toString());
-        String email = httpServletRequest.getParameter("email");
-        String pwd = httpServletRequest.getParameter("password");
-
-        logger.info("이메일 : "+ email + ", 비밀번호 : "+pwd);
-
-        String result = userService.register(email, pwd);
-
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("http://localhost:8080/");
-        return redirectView;
-
-    }
-
     @RequestMapping(value="/user/subscribe", method = RequestMethod.POST)
-    public String subscribe(HttpServletRequest httpServletRequest){
+    public ModelAndView subscribe(HttpServletRequest httpServletRequest){
 
         String email = httpServletRequest.getParameter("email");
 
         String result = userService.subscribe(email);
 
-        return "index";
-
-    }
-
-    @RequestMapping(value="/register", method = RequestMethod.GET)
-    public ModelAndView userRegister(HttpServletRequest httpServletRequest) throws Exception {
-        ModelAndView mv = new ModelAndView("/user/subscribe");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("user/subscribeSuccess");
+        mv.addObject("result", result);
 
         return mv;
+
     }
+
 
 
 
