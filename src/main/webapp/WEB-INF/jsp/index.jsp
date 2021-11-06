@@ -28,10 +28,10 @@
     }
 </style>
 <script type="text/javascript">
-    function subscribe(){
-        const emailForm = document.email_subscribe;
-        emailForm.submit();
-    }
+    let result = ${result};
+
+    alert(result);
+
 </script>
 <body>
 
