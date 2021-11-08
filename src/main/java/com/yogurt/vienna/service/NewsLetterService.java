@@ -8,6 +8,9 @@ import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.yogurt.vienna.dto.News.AptInfoDTO;
+import com.yogurt.vienna.entity.User;
+import com.yogurt.vienna.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
@@ -37,6 +40,8 @@ public class NewsLetterService {
      * 실거래가 API 사이트 : https://www.data.go.kr/data/15058747/openapi.do
      * */
 
+    @Autowired
+    UserRepository userRepository;
 
     @Value("${from}")
     private String fromEmail;
@@ -52,27 +57,37 @@ public class NewsLetterService {
 
     public void sendNewsLetter(String sendGridApiKey) {
 
-        Email from = new Email(fromEmail);
-        Email to = new Email(toEmail);
-        String subject = "Sending news letter for test";
-        Content content = new Content("text/plain", "easy to do anywhere");
-        Mail mail = new Mail(from, subject, to, content);
+        //for문으로 입력된 이메일에 전송하기
+        List<User> userList = (List<User>) userRepository.findAll();
 
-        SendGrid sg = new SendGrid(sendGridApiKey);
-        Request request = new Request();
-        try {
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
-        } catch (IOException e) {
-            System.out.println("SendGrid IO Exception");
-            e.printStackTrace();
+        for(int i=0; i< userList.size(); i++){
+
+
+            Email from = new Email(fromEmail);
+            Email to = new Email(userList.get(i).getEmail());
+            String subject = "Sending news letter for test";
+            Content content = new Content("text/plain", "easy to do anywhere");
+            Mail mail = new Mail(from, subject, to, content);
+
+
+            SendGrid sg = new SendGrid(sendGridApiKey);
+            Request request = new Request();
+            try {
+                request.setMethod(Method.POST);
+                request.setEndpoint("mail/send");
+                request.setBody(mail.build());
+                Response response = sg.api(request);
+                System.out.println(response.getStatusCode());
+                System.out.println(response.getBody());
+                System.out.println(response.getHeaders());
+
+                System.out.println(userList.get(i).getEmail() + " 뉴스레터 전송완료");
+            } catch (IOException e) {
+                System.out.println("SendGrid IO Exception");
+                e.printStackTrace();
+            }
+
         }
-
     }
 
     public String getAptPrice() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {

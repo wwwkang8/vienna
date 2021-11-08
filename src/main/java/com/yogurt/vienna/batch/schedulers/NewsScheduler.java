@@ -21,7 +21,7 @@ public class NewsScheduler {
     /** 스케쥴러 설정 참고자료 : https://huskdoll.tistory.com/819 */
 
     /** 매일 아침 08시 30분에 뉴스전송 배치작업 실행 */
-    @Scheduled(cron = "0 30 08 ? * *")
+    @Scheduled(cron = "0 33 16 ? * *")
     public void executeJob(){
         try{
             jobLauncher.run(
