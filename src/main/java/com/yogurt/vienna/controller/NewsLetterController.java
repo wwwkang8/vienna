@@ -27,8 +27,8 @@ public class NewsLetterController {
     public ResponseEntity<?> sendNewsLetter() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
 
         /** 아래 주석친 부분이 메일 보내는 곳 */
-        //newsLetterService.sendNewsLetter(sendGridApiKey);
-        String result = newsLetterService.getAptPrice();
+        newsLetterService.sendNewsLetter(sendGridApiKey);
+        //String result = newsLetterService.getAptPrice();
 
 
         return ResponseEntity.ok("ok");

@@ -66,7 +66,6 @@ public class UserService {
     }
 
     private boolean emailPwdValidation(String email){
-
         //이메일 @ 기호 포함여부 검증
         if(!email.contains("@")){
             System.out.println("@ 문자가 존재하지 않는 이메일");
