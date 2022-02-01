@@ -1,5 +1,6 @@
 package com.yogurt.vienna.controller;
 
+import com.yogurt.vienna.dto.News.AptInfoDTO;
 import com.yogurt.vienna.service.NewsLetterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 public class NewsLetterController {
@@ -28,7 +30,7 @@ public class NewsLetterController {
 
         /** 아래 주석친 부분이 메일 보내는 곳 */
         newsLetterService.sendNewsLetter(sendGridApiKey);
-        //String result = newsLetterService.getAptPrice();
+        List<AptInfoDTO> aptInfoDTOList = newsLetterService.getAptPrice();
 
 
         return ResponseEntity.ok("ok");
