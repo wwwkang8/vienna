@@ -55,19 +55,27 @@ public class NewsLetterService {
     @Value("${APT_TRADE_DECODING_KEY}")
     private String AptTradeDecodingKey;
 
-    public void sendNewsLetter(String sendGridApiKey) {
+    public void sendNewsLetter(String sendGridApiKey) throws ParserConfigurationException, SAXException, XPathExpressionException, IOException {
 
         //for문으로 입력된 이메일에 전송하기
         List<User> userList = (List<User>) userRepository.findAll();
 
         for(int i=0; i< userList.size(); i++){
 
-
             Email from = new Email(fromEmail);
             Email to = new Email(userList.get(i).getEmail());
             String subject = "Sending news letter for test";
-            Content content = new Content("text/plain", "easy to do anywhere");
+            List<AptInfoDTO> aptInfoDTOList = this.getAptPrice();
+            Content content = new Content("text/plain", aptInfoDTOList.toString());
             Mail mail = new Mail(from, subject, to, content);
+            mail.setTemplateId("d-4a1e12044e6a4c398091c057511f0b69");
+
+            // 템플릿 적용을 어떻게 하지??
+            // 오늘 이메일 템플릿 적용까지 한다
+            // 메일 템플릿 세팅까지 했는데 CSS가 안먹는다.
+
+
+
 
 
             SendGrid sg = new SendGrid(sendGridApiKey);
@@ -90,7 +98,7 @@ public class NewsLetterService {
         }
     }
 
-    public String getAptPrice() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
+    public List<AptInfoDTO> getAptPrice() throws IOException, ParserConfigurationException, SAXException, XPathExpressionException {
 
         //url
         StringBuilder urlBuilder = new StringBuilder("http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade");
@@ -121,15 +129,15 @@ public class NewsLetterService {
         conn.disconnect();
         System.out.println(sb.toString());
 
-        parseXmlData(sb.toString());
+        List<AptInfoDTO> aptInfoDTOList = parseXmlData(sb.toString());
 
 
-        return "";
+        return aptInfoDTOList;
 
 
     }
 
-    public void parseXmlData(String sb) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
+    public List<AptInfoDTO> parseXmlData(String sb) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
 
         /** 참고자료 : https://pangtrue.tistory.com/222 */
         /** 참고자료 : https://jeong-pro.tistory.com/144 */
@@ -229,7 +237,7 @@ public class NewsLetterService {
                                 + ", 층 : "+aptInfoDTOList.get(j).getFloor());
         }
 
-
+        return aptInfoDTOList;
 
     }
 

@@ -72,8 +72,16 @@ public class UserService {
             return false;
         }
 
-
         return true;
+    }
+
+    public UserDTO getUserInfo(Long id){
+
+        User user = userRepository.findById(id);
+
+        UserDTO userDTO = new UserDTO(user.getEmail(), user.getFirstName(), user.getPwd());
+
+        return userDTO;
     }
 
 
